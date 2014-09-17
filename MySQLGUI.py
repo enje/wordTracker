@@ -2,6 +2,7 @@
 #-*- coding: utf-8 -*-
 
 import MySQLdb
+import socket
 import sys
 import os.path
 from xml.etree import cElementTree as ET
@@ -18,7 +19,7 @@ class Delete:               #allows for deletion of words
          #   print "found it"
         n = name.get()
         l = lesson.get()
-        e = exercise.get()
+        e = exercise.get() 
         a = appearance.get()
         if whichTbl == 1:
             if n and l and e and a:                                             #if all columns have data
@@ -544,6 +545,8 @@ class Tables(Bottom):                                       #for purposes of cre
         tab.grid(row = 13, column = 18)
         tab = Tkinter.Button(top, text = "table2", command = lambda : self.handleTblSlct(top, cur, 2))
         tab.grid(row = 13, column = 19)
+        tab = Tkinter.Button(top, text = "New table", command = lambda : self.handleCreateTbl(top, cur))
+        tab.grid(row = 12, column = 18)
     def createTable(self, top, cur):
         #create a new table-----------------------------------
         #cur.execute("DROP TABLE IF EXISTS table1")
@@ -574,6 +577,11 @@ class Tables(Bottom):                                       #for purposes of cre
             elif whichTbl == 2:
                 cur.execute("TRUNCATE TABLE table2")
             self.printBottom(top, cur, 0, '', '', '', '')
+    def handleCreateTbl(self, top, cur):
+        create = Tkinter.Tk()   #create new window
+        create.title("New table")
+        create.mainloop()
+        print "New Table"
 
         
     
